@@ -1,7 +1,7 @@
 extends HTTPRequest
 
-const OPENAI_API_KEY = "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"
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
+var _api_key: String = ""
 
 #@onready var http = self
 
@@ -10,8 +10,11 @@ signal response
 var models := ["gpt-4o-mini", "gpt-3.5-turbo"]
 
 func _ready() -> void:
-	pass
-	#request_completed.connect(_on_http_request_request_completed)
+	# Fetch the key securely from the local environment variables
+	if OS.has_environment("OPENAI_API_KEY"):
+		_api_key = OS.get_environment("OPENAI_API_KEY")
+	else:
+		push_warning("OpenAI API Key missing. Please set the OPENAI_API_KEY environment variable.")
 
 func send_prompt(sender : Node, prompt : String):
 	send_messages(sender, [{"role": "user", "content": prompt}])
