@@ -1,0 +1,1 @@
+{[{'name' : 'Defend', 'actions' : [{'type' : 'move', 'location' : 'left'}], 'conditions' : []}]}

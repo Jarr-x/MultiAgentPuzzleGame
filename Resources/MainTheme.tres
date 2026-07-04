@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dwo3noa1e58n3"]
+
+[ext_resource type="FontFile" uid="uid://jynbb4hnaetk" path="res://Fonts/Arimo,Poetsen_One/Arimo/static/Arimo-Regular.ttf" id="1_f5rfs"]
+
+[resource]
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/shadow_outline_size = 9
+Label/fonts/font = ExtResource("1_f5rfs")

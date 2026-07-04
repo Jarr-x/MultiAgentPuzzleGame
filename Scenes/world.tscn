@@ -1,0 +1,277 @@
+[gd_scene load_steps=24 format=4 uid="uid://ccbweob1v1a28"]
+
+[ext_resource type="Texture2D" uid="uid://cqd1m7hlexrq0" path="res://Assets/DarkTile.png" id="2_ikia7"]
+[ext_resource type="Texture2D" uid="uid://bxkn8swinj1nd" path="res://Assets/Tile.png" id="3_7yui6"]
+[ext_resource type="Texture2D" uid="uid://cjqvji7kgyov1" path="res://Assets/Window.png" id="4_7yui6"]
+[ext_resource type="Texture2D" uid="uid://5nbio88ptdm5" path="res://Assets/EdgeShadows.png" id="5_c5t2i"]
+[ext_resource type="Script" uid="uid://bvql8jc6on30e" path="res://Scripts/window_handler.gd" id="6_5ukr8"]
+[ext_resource type="PackedScene" uid="uid://ble5bhydd3dgo" path="res://Scenes/ai_interactable.tscn" id="6_o06y3"]
+[ext_resource type="PackedScene" uid="uid://c2bh6hqh0qfpg" path="res://Scenes/Bot.tscn" id="7_c5t2i"]
+[ext_resource type="Script" uid="uid://b6qfrbl4gdgka" path="res://Scripts/levers.gd" id="7_o06y3"]
+[ext_resource type="PackedScene" uid="uid://6yjiyjr1pj6u" path="res://Scenes/speech_bubble.tscn" id="8_7yui6"]
+[ext_resource type="Texture2D" uid="uid://sku7h206hfmh" path="res://Assets/Button.png" id="9_5v1tr"]
+[ext_resource type="Theme" uid="uid://dwo3noa1e58n3" path="res://Resources/MainTheme.tres" id="10_e0ngr"]
+[ext_resource type="PackedScene" uid="uid://7lc2vcpbtsub" path="res://Scenes/door.tscn" id="11_7yui6"]
+[ext_resource type="AudioStream" uid="uid://dl004v4sq2x2x" path="res://Sounds/254783__jonathantremblay__buzzing-light.wav" id="12_7yui6"]
+[ext_resource type="AudioStream" uid="uid://cp2xfs51qj7sg" path="res://Sounds/ButtonClick.wav" id="12_c5t2i"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0fj1v"]
+texture = ExtResource("9_5v1tr")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c5t2i"]
+texture = ExtResource("2_ikia7")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-250, -250, 250, -250, 250, 250, -250, 250)
+1:0/0 = 0
+1:1/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0ngr"]
+texture = ExtResource("3_7yui6")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kn0ld"]
+texture = ExtResource("4_7yui6")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-250, -250, 250, -250, 250, 250, -250, 250)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hgpy0"]
+texture = ExtResource("5_c5t2i")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ikia7"]
+tile_size = Vector2i(500, 500)
+physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
+sources/1 = SubResource("TileSetAtlasSource_0fj1v")
+sources/2 = SubResource("TileSetAtlasSource_c5t2i")
+sources/3 = SubResource("TileSetAtlasSource_e0ngr")
+sources/4 = SubResource("TileSetAtlasSource_kn0ld")
+sources/5 = SubResource("TileSetAtlasSource_hgpy0")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e0ngr"]
+random_pitch = 1.25
+streams_count = 1
+stream_0/stream = ExtResource("12_c5t2i")
+
+[sub_resource type="Gradient" id="Gradient_7yui6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c5t2i"]
+gradient = SubResource("Gradient_7yui6")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[node name="World" type="Node2D"]
+
+[node name="TileMap" type="Node2D" parent="."]
+position = Vector2(0, 3.8147e-06)
+scale = Vector2(0.2, 0.2)
+
+[node name="Layer0" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAD/////AwABAAAAAAD//wAAAwABAAEAAAD//wEAAwABAAEAAAD//wIAAwABAAAAAAD//wMAAwAAAAAAAAD//wQAAwABAAEAAAD//wUAAwAAAAEAAAAAAP//AwABAAAAAAAAAAAAAwABAAEAAAAAAAEAAwABAAAAAAAAAAIAAwABAAAAAAAAAAMAAwABAAAAAAAAAAQAAwAAAAEAAAAAAAUAAwAAAAEAAAABAP//AwAAAAEAAAABAAAAAwAAAAAAAAABAAEAAwABAAEAAAABAAIAAwAAAAAAAAABAAMAAwAAAAAAAAABAAQAAwAAAAEAAAABAAUAAwABAAAAAAACAP//AwAAAAAAAAACAAAAAwABAAEAAAACAAEAAwABAAAAAAACAAIAAwABAAEAAAACAAMAAwAAAAEAAAACAAQAAwABAAEAAAACAAUAAwABAAEAAAADAP//AgABAAAAAAADAAAAAgABAAAAAAADAAEAAwAAAAEAAAADAAIAAwABAAEAAAADAAMAAwAAAAEAAAADAAQAAgABAAEAAAADAAUAAgAAAAEAAAAEAP//AwAAAAEAAAAEAAAAAwAAAAEAAAAEAAEAAwABAAAAAAAEAAIAAwAAAAEAAAAEAAMAAwAAAAAAAAAEAAQAAwAAAAEAAAAEAAUAAwAAAAEAAAAFAP//AwAAAAEAAAAFAAAAAwABAAAAAAAFAAEAAwAAAAAAAAAFAAIAAwABAAEAAAAFAAMAAwABAAAAAAAFAAQAAwAAAAEAAAAFAAUAAwAAAAAAAAAGAP//AwABAAEAAAAGAAAAAwAAAAAAAAAGAAEAAwABAAEAAAAGAAIAAwAAAAAAAAAGAAMAAwAAAAAAAAAGAAQAAwAAAAAAAAAGAAUAAwAAAAEAAAAHAP//AwAAAAEAAAAHAAAAAwAAAAAAAAAHAAEAAwAAAAAAAAAHAAIAAwAAAAEAAAAHAAMAAwAAAAAAAAAHAAQAAwAAAAEAAAAHAAUAAwABAAAAAAAIAP//AwABAAAAAAAIAAAAAwAAAAAAAAAIAAEAAwAAAAAAAAAIAAIAAwABAAEAAAAIAAMAAwABAAAAAAAIAAQAAwAAAAEAAAAIAAUAAwAAAAEAAAD+//7/AgAAAAAAAAD+////AwAAAAAAAAD+/wAAAwAAAAEAAAD+/wEAAwABAAEAAAD+/wIAAwAAAAAAAAD+/wMAAwABAAEAAAD+/wQAAwABAAAAAAD+/wUAAwAAAAEAAAD+/wYAAgAAAAAAAAD//wYAAgAAAAAAAAAAAAYAAgAAAAAAAAABAAYAAgAAAAAAAAACAP7/AgABAAEAAAACAAYAAgAAAAAAAAADAP7/AgAAAAEAAAADAAYAAgABAAEAAAAEAP7/AgAAAAEAAAAEAAYAAgAAAAAAAAAFAP7/AwAAAAAAAAAFAAYAAgABAAEAAAAGAP7/AwAAAAEAAAAGAAYAAgABAAAAAAAHAP7/AwAAAAAAAAAHAAYAAgABAAAAAAAIAP7/AgABAAEAAAAIAAYAAgABAAEAAAAJAP7/AgAAAAAAAAAJAP//AwAAAAEAAAAJAAAAAwAAAAAAAAAJAAEAAwABAAEAAAAJAAIAAwABAAAAAAAJAAMAAwABAAEAAAAJAAQAAwAAAAAAAAAJAAUAAwABAAAAAAAJAAYAAgABAAAAAAD9//7/AgABAAAAAAD9////AgAAAAAAAAD9/wAAAgAAAAAAAAD9/wEAAgABAAAAAAD9/wIAAgAAAAEAAAD9/wMAAgAAAAAAAAD9/wQAAgABAAEAAAD9/wUAAgABAAAAAAD9/wYAAgAAAAEAAAAKAP//AgABAAEAAAAKAAAAAgAAAAEAAAAKAAEAAgABAAEAAAAKAAIAAgAAAAEAAAAKAAMAAgAAAAEAAAAKAAQAAgAAAAAAAAAKAAUAAgABAAEAAAAKAP7/AgABAAEAAAAKAAYAAgAAAAEAAAD///v/AwABAAAAAAD///z/AwABAAEAAAD///3/AwAAAAEAAAAAAPv/AwABAAEAAAAAAPz/AwABAAEAAAAAAP3/AwABAAAAAAABAPv/AwAAAAAAAAABAPz/AwABAAAAAAABAP3/AwABAAAAAAAFAPr/AwABAAEAAAAFAPv/AwABAAAAAAAFAPz/AwAAAAEAAAAFAP3/AwAAAAEAAAAGAPr/AwABAAAAAAAGAPv/AwAAAAEAAAAGAPz/AwAAAAEAAAAGAP3/AwAAAAEAAAAHAPr/AwAAAAAAAAAHAPv/AwAAAAAAAAAHAPz/AwAAAAEAAAAHAP3/AwABAAEAAAAIAPr/AgAAAAEAAAAIAPv/AgAAAAEAAAAIAPz/AgAAAAAAAAAIAP3/AgABAAEAAAD///r/AwAAAAEAAAAAAPr/AwABAAEAAAABAPr/AwAAAAEAAAD+//n/AgAAAAAAAAD+//r/AgABAAEAAAD+//v/AgABAAAAAAD+//z/AgABAAAAAAD+//3/AgABAAEAAAD///n/AwAAAAEAAAAAAPn/AwAAAAAAAAABAPn/AwAAAAEAAAACAPn/AgABAAEAAAACAPr/AgAAAAEAAAACAPv/AgABAAAAAAACAPz/AgAAAAEAAAACAP3/AgAAAAAAAAD+//j/AgABAAAAAAD///j/AgABAAEAAAAAAPj/AgAAAAEAAAABAPj/AgABAAEAAAACAPj/AgAAAAAAAAAEAPj/AgABAAEAAAAEAPn/AgABAAEAAAAEAPr/AgAAAAEAAAAEAPv/AgABAAEAAAAEAPz/AgABAAAAAAAEAP3/AgAAAAAAAAAFAPj/AgABAAEAAAAFAPn/AwABAAAAAAAGAPj/AgABAAAAAAAGAPn/AwABAAEAAAAHAPj/AgABAAEAAAAHAPn/AwAAAAAAAAAIAPj/AgAAAAAAAAAIAPn/AgABAAEAAAABAP7/AwAAAAEAAAAAAP7/AwABAAAAAAD///7/AwAAAAAAAAA=")
+tile_set = SubResource("TileSet_ikia7")
+
+[node name="Layer1" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAEAAQAAQAAAAAAAAAEAAUAAQAAAAEAAAAFAAQAAQABAAAAAAAFAAUAAQABAAEAAAAGAAQAAQAAAAAAAAAGAAUAAQAAAAEAAAAHAAQAAQABAAAAAAAHAAUAAQABAAEAAAAIAAQAAQAAAAAAAAAIAAUAAQAAAAEAAAAJAAQAAQABAAAAAAAJAAUAAQABAAEAAAADAAMABAAAAAAAAAADAAIABAAAAAAAAAADAAEABAAAAAAAAAA=")
+tile_set = SubResource("TileSet_ikia7")
+
+[node name="Layer2" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAEAP//BQAAAAAAAAD+////BQAAAAAAAAD///n/BQAAAAAAAAAFAPn/BQAAAAAAAAAHAPn/BQACAAAAAAAJAP//BQACAAAAAAACAP//BQACAAAAAAD/////BQABAAAAAAAAAP//BQABAAAAAAABAP//BQABAAAAAAAFAP//BQABAAAAAAAGAP//BQABAAAAAAAHAP//BQABAAAAAAAIAP//BQABAAAAAAAGAPn/BQABAAAAAAAAAPn/BQABAAAAAAD+/wAABQAAAAEAAAD+/wEABQAAAAEAAAD+/wIABQAAAAEAAAD+/wMABQAAAAEAAAD+/wQABQAAAAEAAAAEAAAABQAAAAEAAAAEAAEABQAAAAEAAAAEAAIABQAAAAEAAAAEAAMABQAAAAEAAAAEAAQABQAAAAEAAAAFAPz/BQAAAAEAAAAFAPv/BQAAAAEAAAAFAPr/BQAAAAEAAAD///r/BQAAAAEAAAD///v/BQAAAAEAAAD///z/BQAAAAEAAAD+/wUABQAAAAIAAAAEAAUABQAAAAIAAAAFAP3/BQAAAAIAAAD///3/BQAAAAIAAAD//wUABQABAAIAAAAAAAUABQABAAIAAAABAAUABQABAAIAAAAFAAUABQABAAIAAAAGAAUABQABAAIAAAAHAAUABQABAAIAAAAIAAUABQABAAIAAAAGAP3/BQABAAIAAAAAAP3/BQABAAIAAAAJAAUABQACAAIAAAACAAUABQACAAIAAAABAP3/BQACAAIAAAAHAP3/BQACAAIAAAAJAAQABQACAAEAAAAJAAMABQACAAEAAAAJAAIABQACAAEAAAAJAAEABQACAAEAAAAJAAAABQACAAEAAAACAAQABQACAAEAAAACAAMABQACAAEAAAACAAIABQACAAEAAAACAAEABQACAAEAAAACAAAABQACAAEAAAABAPz/BQACAAEAAAABAPv/BQACAAEAAAABAPr/BQACAAEAAAAHAPz/BQACAAEAAAAHAPv/BQACAAEAAAAHAPr/BQACAAEAAAABAPn/BQACAAAAAAA=")
+tile_set = SubResource("TileSet_ikia7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 250)
+zoom = Vector2(0.65, 0.65)
+position_smoothing_enabled = true
+
+[node name="LeftBot" parent="." node_paths=PackedStringArray("speechBubble") instance=ExtResource("7_c5t2i")]
+modulate = Color(0.7, 0.93, 1, 1)
+position = Vector2(0, 250)
+rotation = -0.0012497
+system = "You find yourself trapped in an enclosed room, and you must try to get out. You look around and see a closed door at the front of the room, a window on the right and a signboard with a message on it at the back of the room. You can choose an object to look at/interact with by writing out it's name surrounded by asterix eg. *door* will interact with the door.Here is the list of objects you can interact with (door, window, sign).The user is the game master and YOU (the assistant) are the player. Feel free to talk through your thought process but remember to only do one action."
+targetGroup = "LeftRoom"
+voice = "David"
+speechBubble = NodePath("SpeechBubble")
+
+[node name="SpeechBubble" parent="LeftBot" instance=ExtResource("8_7yui6")]
+position = Vector2(-228, -47)
+
+[node name="RightBot" parent="." node_paths=PackedStringArray("speechBubble") instance=ExtResource("7_c5t2i")]
+modulate = Color(1, 0.84, 0.970667, 1)
+position = Vector2(700, 230)
+system = "You find yourself trapped in an enclosed room, and you must try to get out. You look around and see a closed door at the front of the room, a window on the right and a set of 3 buttons at the back of the room. You can choose an object to look at/interact with by writing out it's name surrounded by asterix eg. *door* will interact with the door.Here is the list of objects you can interact with (door, window, leftButton, middleButton, rightButton).The user is the game master and YOU (the assistant) are the player. Feel free to talk through your thought process but remember to only do one action."
+targetGroup = "RightRoom"
+voice = "Zira"
+speechBubble = NodePath("SpeechBubble")
+
+[node name="SpeechBubble" parent="RightBot" instance=ExtResource("8_7yui6")]
+position = Vector2(230, -50)
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+position = Vector2(1362, 1307)
+
+[node name="Walls" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-96, -96)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Walls"]
+polygon = PackedVector2Array(0, 0, 1536, 0, 1536, 1024, 0, 1024, 0, 96, 96, 96, 96, 928, 1440, 928, 1440, 96, 0, 96)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D/Walls"]
+color = Color(0.737137, 0.714838, 0.666449, 1)
+polygon = PackedVector2Array(0, 0, 1536, 0, 1536, 1024, 0, 1024, 0, 96, 96, 96, 96, 928, 1440, 928, 1440, 96, 0, 96)
+
+[node name="Walls2" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-32, -96)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Walls2"]
+polygon = PackedVector2Array(672, 96, 672, 928, 736, 928, 736, 96)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D/Walls2"]
+color = Color(0.847474, 0.847474, 0.847474, 1)
+polygon = PackedVector2Array(672, 96, 672, 510.228, 672, 928, 736, 928, 736, 96)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D"]
+visible = false
+position = Vector2(-32, 0)
+color = Color(0.31, 0.1023, 0.1023, 1)
+polygon = PackedVector2Array(1216, 768, 1216, 800, 1312, 800, 1312, 768, 1280, 768, 1312, 704, 1280, 672, 1248, 768)
+
+[node name="Polygon2D7" type="Polygon2D" parent="Node2D"]
+visible = false
+position = Vector2(704, 352)
+color = Color(0.293649, 0.763811, 0.945365, 1)
+polygon = PackedVector2Array(0, 96, -64, 96, -64, -128, 0, -128)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Node2D"]
+visible = false
+position = Vector2(-224, 0)
+color = Color(0.31, 0.1023, 0.1023, 1)
+polygon = PackedVector2Array(1216, 768, 1216, 800, 1312, 800, 1312, 768, 1280, 768, 1312, 704, 1280, 672, 1248, 768)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Node2D"]
+visible = false
+position = Vector2(-448, 0)
+color = Color(0.31, 0.1023, 0.1023, 1)
+polygon = PackedVector2Array(1216, 768, 1216, 800, 1312, 800, 1312, 768, 1280, 768, 1312, 704, 1280, 672, 1248, 768)
+
+[node name="WindowHandler" type="Node2D" parent="."]
+position = Vector2(-192, -31)
+script = ExtResource("6_5ukr8")
+
+[node name="TimeOut" type="Timer" parent="WindowHandler"]
+wait_time = 13.4
+one_shot = true
+
+[node name="Window" parent="WindowHandler" groups=["LeftRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(442, 281)
+auto_continue = false
+
+[node name="Node2D" type="Node2D" parent="WindowHandler"]
+
+[node name="Window" parent="WindowHandler/Node2D" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(642, 281)
+auto_continue = false
+
+[node name="LeftRoom" type="Node2D" parent="."]
+position = Vector2(-153, -64)
+
+[node name="Polygon2D4" type="Polygon2D" parent="LeftRoom"]
+position = Vector2(153, 664)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-126, 0, -126, -64, 226, -64, 226, 0)
+
+[node name="Sign" parent="LeftRoom/Polygon2D4" groups=["LeftRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(50, -99)
+text = "You read the sign, it says 'Middle Left Right''"
+
+[node name="Label" type="Label" parent="LeftRoom/Polygon2D4"]
+offset_left = -90.0
+offset_top = -50.0
+offset_right = 205.0
+theme = ExtResource("10_e0ngr")
+theme_override_font_sizes/font_size = 36
+text = "Middle Left Right"
+metadata/_edit_use_anchors_ = true
+
+[node name="Door" parent="LeftRoom" node_paths=PackedStringArray("door") instance=ExtResource("11_7yui6")]
+position = Vector2(203, -86)
+door = NodePath("Door")
+
+[node name="Door" parent="LeftRoom/Door" groups=["LeftRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(0, 20)
+text = "You try to open the door but it doesn't budge!"
+
+[node name="RightRoom" type="Node2D" parent="."]
+position = Vector2(-153, -64)
+
+[node name="Door" parent="RightRoom" node_paths=PackedStringArray("door") instance=ExtResource("11_7yui6")]
+position = Vector2(803, -86)
+door = NodePath("Door")
+
+[node name="Door" parent="RightRoom/Door" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(0, 20)
+text = "You try to open the door but it doesn't budge!"
+
+[node name="Levers" type="Node2D" parent="RightRoom"]
+script = ExtResource("7_o06y3")
+
+[node name="BleepSound" type="AudioStreamPlayer2D" parent="RightRoom/Levers"]
+position = Vector2(853, 564)
+stream = SubResource("AudioStreamRandomizer_e0ngr")
+
+[node name="LeftButton" parent="RightRoom/Levers" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(653, 564)
+text = "You step on the button and I presses down under your weight letting out a feight beep."
+
+[node name="MiddleButton" parent="RightRoom/Levers" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(853, 564)
+text = "You step on the button and I presses down under your weight letting out a feight beep."
+
+[node name="RightButton" parent="RightRoom/Levers" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(1053, 564)
+text = "You step on the button and I presses down under your weight letting out a feight beep."
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(279, 382)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_c5t2i")
+texture_scale = 19.56
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_7yui6")
+volume_db = -33.075
+bus = &"PortalRoom"
+
+[connection signal="timeout" from="WindowHandler/TimeOut" to="WindowHandler" method="stop_waiting"]
+[connection signal="body_exited" from="WindowHandler/Window" to="WindowHandler" method="_on_window_body_exited"]
+[connection signal="interacted_with" from="WindowHandler/Window" to="WindowHandler" method="_on_window_interacted_with"]
+[connection signal="body_exited" from="WindowHandler/Node2D/Window" to="WindowHandler" method="_on_window_body_exited"]
+[connection signal="interacted_with" from="WindowHandler/Node2D/Window" to="WindowHandler" method="_on_window_interacted_with"]

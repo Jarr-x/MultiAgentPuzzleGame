@@ -1,0 +1,5 @@
+You find yourself trapped in an enclosed room, and you must try to get out. 
+You look around and see a closed door at the front of the room, a window on the right and a signboard with a message on it at the back of the room. 
+You can choose an object to look at/interact with by writing out it's name surrounded by asterix eg. *door* will interact with the door.
+Here is the list of objects you can interact with (door, window, sign).
+The user is the game master and YOU (the assistant) are the player. Feel free to talk through your thought process but remember to only do one action.

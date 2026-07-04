@@ -1,0 +1,11 @@
+BotSMP
+
+Each bot has a dirrerent main objective
+
+could have multiple levels of thinking. along with memories
+
+Every 5 minutes a bot choses a sub objective to work towards
+
+Every 30 seconds the bot choses a sub-sub objective
+
+every 3 seoconds the bot choses an action

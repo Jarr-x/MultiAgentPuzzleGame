@@ -1,0 +1,195 @@
+[gd_scene load_steps=11 format=3 uid="uid://ccbweob1v1a28"]
+
+[ext_resource type="Script" uid="uid://cqqcyfc7e0vtm" path="res://Scripts/player.gd" id="1_8j60k"]
+[ext_resource type="Texture2D" uid="uid://w54oh61p3xj2" path="res://icon.svg" id="2_fo5ed"]
+[ext_resource type="Script" uid="uid://bxra5wrt5rlrd" path="res://Scripts/bot.gd" id="3_5ukr8"]
+[ext_resource type="Texture2D" uid="uid://d0jq6rqgi088g" path="res://14957082.png" id="4_o06y3"]
+[ext_resource type="Script" uid="uid://bvql8jc6on30e" path="res://Scripts/window_handler.gd" id="6_5ukr8"]
+[ext_resource type="PackedScene" uid="uid://ble5bhydd3dgo" path="res://Scenes/ai_interactable.tscn" id="6_o06y3"]
+[ext_resource type="Script" uid="uid://c818imr4wekq2" path="res://Scripts/door.gd" id="7_k7acu"]
+[ext_resource type="Script" uid="uid://b6qfrbl4gdgka" path="res://Scripts/levers.gd" id="7_o06y3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8j60k"]
+size = Vector2(132, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fo5ed"]
+size = Vector2(94, 124)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["PointOfInterest"]]
+position = Vector2(672, 480)
+motion_mode = 1
+script = ExtResource("1_8j60k")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.61, 0.61)
+position_smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_8j60k")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_fo5ed")
+
+[node name="LeftBot" type="CharacterBody2D" parent="."]
+modulate = Color(0.72549, 1, 1, 1)
+position = Vector2(128, 480)
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("3_5ukr8")
+system = "You find yourself trapped in an enclosed room, and you must try to get out. You look around and see a closed door at the front of the room, a window on the right and a signboard with a message on it at the back of the room. You can choose an object to look at/interact with by writing out it's name surrounded by asterix eg. *door* will interact with the door.Here is the list of objects you can interact with (door, window, sign).The user is the game master and YOU (the assistant) are the player. Feel free to talk through your thought process but remember to only do one action."
+targetGroup = "LeftRoom"
+voice = "David"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBot"]
+shape = SubResource("RectangleShape2D_fo5ed")
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftBot"]
+scale = Vector2(0.495, 0.495)
+texture = ExtResource("4_o06y3")
+
+[node name="Timer" type="Timer" parent="LeftBot"]
+wait_time = 0.5
+
+[node name="RightBot" type="CharacterBody2D" parent="."]
+modulate = Color(1, 0.870588, 1, 1)
+position = Vector2(992, 480)
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("3_5ukr8")
+system = "You find yourself trapped in an enclosed room, and you must try to get out. You look around and see a closed door at the front of the room, a window on the right and a set of 3 levers at the back of the room. You can choose an object to look at/interact with by writing out it's name surrounded by asterix eg. *door* will interact with the door.Here is the list of objects you can interact with (door, window, leftLever, middleLever, rightLever).The user is the game master and YOU (the assistant) are the player. Feel free to talk through your thought process but remember to only do one action."
+targetGroup = "RightRoom"
+voice = "Zira"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBot"]
+shape = SubResource("RectangleShape2D_fo5ed")
+
+[node name="Sprite2D" type="Sprite2D" parent="RightBot"]
+scale = Vector2(0.495, 0.495)
+texture = ExtResource("4_o06y3")
+
+[node name="Timer" type="Timer" parent="RightBot"]
+wait_time = 0.5
+
+[node name="Tower" type="Node2D" parent="." groups=["PointOfInterest"]]
+position = Vector2(1984, 368)
+
+[node name="Sprite2D" type="Sprite2D" parent="Tower"]
+modulate = Color(0, 0.52549, 1, 1)
+texture = ExtResource("2_fo5ed")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Walls" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-96, -96)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Walls"]
+polygon = PackedVector2Array(0, 0, 1536, 0, 1536, 1024, 0, 1024, 0, 96, 96, 96, 96, 928, 1440, 928, 1440, 96, 0, 96)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D/Walls"]
+color = Color(0.737137, 0.714838, 0.666449, 1)
+polygon = PackedVector2Array(0, 0, 1536, 0, 1536, 1024, 0, 1024, 0, 96, 96, 96, 96, 928, 1440, 928, 1440, 96, 0, 96)
+
+[node name="Walls2" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-32, -96)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Walls2"]
+polygon = PackedVector2Array(672, 96, 672, 928, 736, 928, 736, 96)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D/Walls2"]
+color = Color(0.847474, 0.847474, 0.847474, 1)
+polygon = PackedVector2Array(672, 96, 672, 510.228, 672, 928, 736, 928, 736, 96)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D"]
+position = Vector2(-32, 0)
+color = Color(0.31, 0.1023, 0.1023, 1)
+polygon = PackedVector2Array(1216, 768, 1216, 800, 1312, 800, 1312, 768, 1280, 768, 1312, 704, 1280, 672, 1248, 768)
+
+[node name="Polygon2D7" type="Polygon2D" parent="Node2D"]
+position = Vector2(704, 352)
+color = Color(0.293649, 0.763811, 0.945365, 1)
+polygon = PackedVector2Array(0, 96, -64, 96, -64, -128, 0, -128)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Node2D"]
+position = Vector2(288, 832)
+color = Color(0.31, 0.1023, 0.1023, 1)
+polygon = PackedVector2Array(-126, 0, -126, -64, 226, -64, 226, 0)
+
+[node name="Label" type="Label" parent="Node2D/Polygon2D4"]
+offset_left = -98.0
+offset_top = -57.0
+offset_right = 197.0
+offset_bottom = -7.0
+theme_override_font_sizes/font_size = 36
+text = "Middle Left Right"
+
+[node name="Polygon2D2" type="Polygon2D" parent="Node2D"]
+position = Vector2(-224, 0)
+color = Color(0.31, 0.1023, 0.1023, 1)
+polygon = PackedVector2Array(1216, 768, 1216, 800, 1312, 800, 1312, 768, 1280, 768, 1312, 704, 1280, 672, 1248, 768)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Node2D"]
+position = Vector2(-448, 0)
+color = Color(0.31, 0.1023, 0.1023, 1)
+polygon = PackedVector2Array(1216, 768, 1216, 800, 1312, 800, 1312, 768, 1280, 768, 1312, 704, 1280, 672, 1248, 768)
+
+[node name="WindowHandler" type="Node2D" parent="."]
+script = ExtResource("6_5ukr8")
+
+[node name="Window" parent="WindowHandler" groups=["LeftRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(608, 352)
+auto_continue = false
+
+[node name="Node2D" type="Node2D" parent="WindowHandler"]
+
+[node name="Window" parent="WindowHandler/Node2D" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(736, 352)
+auto_continue = false
+
+[node name="LeftRoom" type="Node2D" parent="."]
+
+[node name="Door" type="Node2D" parent="LeftRoom"]
+script = ExtResource("7_k7acu")
+
+[node name="Polygon2D5" type="Polygon2D" parent="LeftRoom/Door"]
+position = Vector2(288, 0)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-128, 0, 96, 0, 96, -96, -128, -96)
+
+[node name="Door" parent="LeftRoom/Door" groups=["LeftRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(256, 0)
+text = "You try to open the door but it doesn't budge!"
+
+[node name="Sign" parent="LeftRoom" groups=["LeftRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(320, 736)
+text = "You read the sign, it says 'Middle Left Right''"
+
+[node name="RightRoom" type="Node2D" parent="."]
+
+[node name="Door" parent="RightRoom" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(1024, 0)
+text = "You try to open the door but it doesn't budge!"
+
+[node name="Levers" type="Node2D" parent="RightRoom"]
+script = ExtResource("7_o06y3")
+
+[node name="LeftLever" parent="RightRoom/Levers" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(832, 736)
+text = "You trigger the lever and it clicks"
+
+[node name="MiddleLever" parent="RightRoom/Levers" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(1056, 736)
+text = "You trigger the lever and it clicks"
+
+[node name="RightLever" parent="RightRoom/Levers" groups=["RightRoom"] instance=ExtResource("6_o06y3")]
+position = Vector2(1248, 736)
+text = "You trigger the lever and it clicks"
+
+[connection signal="timeout" from="LeftBot/Timer" to="LeftBot" method="_on_timer_timeout"]
+[connection signal="timeout" from="RightBot/Timer" to="RightBot" method="_on_timer_timeout"]
+[connection signal="body_exited" from="WindowHandler/Window" to="WindowHandler" method="_on_window_body_exited"]
+[connection signal="interacted_with" from="WindowHandler/Window" to="WindowHandler" method="_on_window_interacted_with"]
+[connection signal="body_exited" from="WindowHandler/Node2D/Window" to="WindowHandler" method="_on_window_body_exited"]
+[connection signal="interacted_with" from="WindowHandler/Node2D/Window" to="WindowHandler" method="_on_window_interacted_with"]

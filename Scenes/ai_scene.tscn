@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://m3u2nkjtaww0"]
+
+[ext_resource type="Script" uid="uid://cu3vijgj0idge" path="res://Scripts/ai_scene.gd" id="1_u1qmi"]
+
+[sub_resource type="Gradient" id="Gradient_yna16"]
+colors = PackedColorArray(0.466667, 0, 1, 1, 0, 0.0266666, 0.4, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_stpqy"]
+noise_type = 3
+frequency = 0.0011
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_os1uh"]
+color_ramp = SubResource("Gradient_yna16")
+noise = SubResource("FastNoiseLite_stpqy")
+
+[node name="AIScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u1qmi")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_os1uh")
+
+[node name="textInput" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 214.0
+offset_top = 117.0
+offset_right = 829.0
+offset_bottom = 348.0
+
+[node name="textOutput" type="Label" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 530.0
+offset_right = 100.0
+offset_bottom = 619.0
+
+[node name="SendButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 238.0
+offset_top = 415.0
+offset_right = 421.0
+offset_bottom = 514.0
+text = "Send
+"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="pressed" from="SendButton" to="." method="_on_send_button_pressed"]

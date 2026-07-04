@@ -1,0 +1,94 @@
+[gd_scene load_steps=17 format=3 uid="uid://c2bh6hqh0qfpg"]
+
+[ext_resource type="Script" uid="uid://bxra5wrt5rlrd" path="res://Scripts/bot.gd" id="1_ly88g"]
+[ext_resource type="Texture2D" uid="uid://d0jq6rqgi088g" path="res://14957082.png" id="2_2mbih"]
+[ext_resource type="AudioStream" uid="uid://jgtc8l6ux3y5" path="res://Sounds/Footsteps/step1.wav" id="3_nmcxb"]
+[ext_resource type="AudioStream" uid="uid://13uflrwn0h0t" path="res://Sounds/Footsteps/step3.wav" id="4_gk242"]
+[ext_resource type="AudioStream" uid="uid://cjhf2b7ytixun" path="res://Sounds/Footsteps/step2.wav" id="5_eq8gv"]
+[ext_resource type="AudioStream" uid="uid://nhapslduqnjt" path="res://Sounds/Footsteps/step4.wav" id="6_cjols"]
+[ext_resource type="AudioStream" uid="uid://x0oyfmgeb26u" path="res://Sounds/Footsteps/step5.wav" id="7_wj4if"]
+[ext_resource type="AudioStream" uid="uid://btf7aclwowp1p" path="res://Sounds/Footsteps/step6.wav" id="8_nd7ke"]
+[ext_resource type="Texture2D" uid="uid://bvhy1mr2y08j" path="res://Assets/LogoTransparent.png" id="9_gk242"]
+
+[sub_resource type="Gradient" id="Gradient_7yui6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c5t2i"]
+gradient = SubResource("Gradient_7yui6")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7yui6"]
+closed = false
+polygon = PackedVector2Array(-962, 253, -963, 154, -863, 153, -864, 253)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fo5ed"]
+size = Vector2(80, 80)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oueek"]
+random_pitch = 1.15
+streams_count = 6
+stream_0/stream = ExtResource("3_nmcxb")
+stream_1/stream = ExtResource("4_gk242")
+stream_2/stream = ExtResource("5_eq8gv")
+stream_3/stream = ExtResource("6_cjols")
+stream_4/stream = ExtResource("7_wj4if")
+stream_5/stream = ExtResource("8_nd7ke")
+
+[sub_resource type="Gradient" id="Gradient_eq8gv"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cjols"]
+gradient = SubResource("Gradient_eq8gv")
+
+[node name="Bot" type="CharacterBody2D" groups=["Bots"]]
+z_index = 1
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_ly88g")
+
+[node name="ThinkingSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.552956, 0.552956, 0.552956, 1)
+position = Vector2(50, -50)
+scale = Vector2(0.101939, 0.101939)
+texture = ExtResource("2_2mbih")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.831373)
+scale = Vector2(2.26646, 2.26646)
+texture = SubResource("GradientTexture2D_c5t2i")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(913, -203)
+occluder = SubResource("OccluderPolygon2D_7yui6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fo5ed")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.399767, 0.399767)
+texture = ExtResource("2_2mbih")
+
+[node name="FootStepSounds" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_oueek")
+volume_db = -15.295
+bus = &"PortalRoom"
+
+[node name="Timer" type="Timer" parent="FootStepSounds"]
+wait_time = 0.501
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("GradientTexture2D_cjols")
+
+[node name="LogoTransparent" type="Sprite2D" parent="."]
+scale = Vector2(0.406256, 0.406256)
+texture = ExtResource("9_gk242")

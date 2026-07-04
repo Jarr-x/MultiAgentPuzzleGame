@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://7lc2vcpbtsub"]
+
+[ext_resource type="Script" uid="uid://c818imr4wekq2" path="res://Scripts/door.gd" id="1_p0e35"]
+[ext_resource type="AudioStream" uid="uid://dfavo0spvxaoh" path="res://Sounds/54974__nuel__spacedoor_open.wav" id="2_p0e35"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0e35"]
+size = Vector2(320, 40)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_p0e35")
+
+[node name="Left" type="Polygon2D" parent="."]
+position = Vector2(-130, 0)
+color = Color(0.699653, 0.699653, 0.699653, 1)
+polygon = PackedVector2Array(0, -20, 130, -20, 130, 20, 0, 20)
+
+[node name="Right" type="Polygon2D" parent="."]
+position = Vector2(130, 0)
+rotation = -3.14159
+color = Color(0.699653, 0.699653, 0.699653, 1)
+polygon = PackedVector2Array(0, -20, 130, -20, 130, 20, 0, 20)
+
+[node name="Side" type="Polygon2D" parent="."]
+position = Vector2(-150, 0)
+color = Color(0.385493, 0.385493, 0.385492, 1)
+polygon = PackedVector2Array(20, -50, 30, -30, 30, 30, 20, 50, 0, 50, -10, 40, -10, -40, 0, -50)
+
+[node name="Side2" type="Polygon2D" parent="."]
+position = Vector2(150, 0)
+rotation = -3.14159
+color = Color(0.385493, 0.385493, 0.385492, 1)
+polygon = PackedVector2Array(20, -50, 30, -30, 30, 30, 20, 50, 0, 50, -10, 40, -10, -40, 0, -50)
+
+[node name="OpenSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_p0e35")
+volume_db = -8.565
+bus = &"PortalRoom"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_p0e35")

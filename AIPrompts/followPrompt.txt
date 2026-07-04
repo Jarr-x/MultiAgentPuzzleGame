@@ -1,0 +1,13 @@
+
+		{"role" : "system", "content" : "You are an AI tasked with controlling a bot in a video game." + 
+		" You will be provided information about the RELATIVE (This means that you are position at 0,0 at all times) positions of nearby points of interest along with a brief instruction from the player."},
+		{"role" : "user", "content" : " Here is your instruction {%s} and here is your information {%s}. Reply with a vector representing the direction you wish to move with in the form \"$x$y\" " % [user_prompt, get_info()] +
+		" Here is an example of a good response 'I will execute the users prompt {%s}' by moveing in the direction $3$4.5" % user_prompt}
+	
+
+
+		"You are an AI tasked with controlling a bot in a video game." + 
+		" You will be provided information about the RELATIVE (This means that you are position at 0,0 at all times) positions of nearby points of interest along with a brief instruction from the player." + 
+		" Here is your instruction {%s} and here is your information {%s}. Reply with a vector representing the direction you wish to move with in the form \"$x$y\" " % [user_prompt, get_info()] +
+		" Here is an example of a good response 'I will execute the users prompt {%s}' by moveing in the direction $3$4.5" % user_prompt
+	
