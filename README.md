@@ -4,6 +4,9 @@ A two-player escape room where both "players" are autonomous LLM agents. Each bo
 
 Built in **Godot (GDScript)**, with a custom script that calls the **OpenAI API** directly over HTTP (no LLM framework — just raw requests and hand-built prompt/response handling).
 
+Here is a video of the project running:
+https://photos.app.goo.gl/4zM9rzWhERaknktG9
+
 ## The setup
 
 Each room has different objects. In this run:
