@@ -7,6 +7,16 @@ Built in **Godot (GDScript)**, with a custom script that calls the **OpenAI API*
 Here is a video of the project running:
 https://photos.app.goo.gl/4zM9rzWhERaknktG9
 
+## Environment Variables
+To run this project locally, you will need an OpenAI API key. 
+The project expects this key to be set as an environment variable:
+
+### On Linux/macOS
+export OPENAI_API_KEY="your_api_key_here"
+
+### On Windows (Command Prompt)
+set OPENAI_API_KEY="your_api_key_here"
+
 ## The setup
 
 Each room has different objects. In this run:
